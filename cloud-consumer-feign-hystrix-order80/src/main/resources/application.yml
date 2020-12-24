@@ -24,10 +24,4 @@ eureka:
     #lease-expiration-duration-in-seconds: 2
 
 
-## feign 超时配置
-ribbon:
-  ReadTimeout: 5000
-  ConnectTimeout: 5000
-
-
 
