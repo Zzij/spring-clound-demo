@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.zz.springcloud.service.PaymentService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Service
@@ -34,5 +35,27 @@ public class PaymentServiceImpl implements PaymentService {
 
     public String paymentHystrixHandler() {
         return Thread.currentThread().getName() + " paymentHystrixHandler error";
+    }
+
+
+    //服务熔断
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreakerHandler", commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"), //是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"), //请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"), //时间窗口期,多久内尝试恢复
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60"), //失败率多少熔断
+
+    })
+    public String paymentCircuitBreaker(Integer id) {
+
+        if(id < 0){
+            throw  new RuntimeException("error");
+        }
+
+        return Thread.currentThread().getName() + "调用成功!!";
+    }
+
+    public String paymentCircuitBreakerHandler(Integer id){
+        return Thread.currentThread().getName() + " 不能为负数调用失败!!";
     }
 }

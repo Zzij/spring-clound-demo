@@ -7,4 +7,6 @@ public interface PaymentService {
     String paymentError(Integer id);
 
     String paymentTimeout();
+
+    String paymentCircuitBreaker(Integer id);
 }
