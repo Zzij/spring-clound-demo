@@ -34,4 +34,14 @@ public class PaymentController {
     public String payCircuit(@PathVariable("id") Integer id){
         return paymentService.paymentCircuitBreaker(id);
     }
+
+    @GetMapping("/payment/get")
+    public String payGet(){
+        return "get success";
+    }
+
+    @GetMapping("/payment/lb")
+    public String payLb(){
+        return "lb success";
+    }
 }
