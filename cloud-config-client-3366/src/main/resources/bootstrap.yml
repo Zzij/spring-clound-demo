@@ -1,17 +1,16 @@
 server:
-  port: 3344
+  port: 3366
 
 spring:
   application:
-    name: cloud-config-server-service
+    name: cloud-config-client-service
   cloud:
     config:
-      server:
-        git:
-          uri: git@github.com:Zzij/springcloudconfig.git   #地址
-          search-paths:
-            - config  #配置文件目录
       label: master  #分支
+      name: ${spring.application.name}  #配置文件名
+      profile: dev         #配置文件环境   组合就是  {label}/{name}-{profile}.yml  这个文件
+      uri:
+        - http://localhost:3344/
   #mq的配置
   rabbitmq:
     host: 192.168.65.192
@@ -29,7 +28,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:7001/eureka
   instance:
-    instance-id: config3344
+    instance-id: config3366
     #访问路径可以显示IP地址
     prefer-ip-address: true
     #Eureka客户端向服务端发送心跳的时间间隔，单位为秒(默认是30秒)
@@ -37,7 +36,7 @@ eureka:
     #Eureka服务端在收到最后一次心跳后等待时间上限，单位为秒(默认是90秒)，超时将剔除服务
     #lease-expiration-duration-in-seconds: 2
 
-
+# 暴露监控端点
 management:
   endpoints:
     web:

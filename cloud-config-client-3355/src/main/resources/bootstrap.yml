@@ -11,10 +11,12 @@ spring:
       profile: dev         #配置文件环境   组合就是  {label}/{name}-{profile}.yml  这个文件
       uri:
         - http://localhost:3344/
-
-
-
-
+  #mq的配置
+  rabbitmq:
+    host: 192.168.65.192
+    port: 5672
+    username: guest
+    password: guest
 
 
 eureka:
