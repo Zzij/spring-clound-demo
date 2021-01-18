@@ -1,0 +1,15 @@
+server:
+  port: 3377
+
+spring:
+  application:
+    name: cloud-nacos-config-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml    #指定配置的格式yaml 、properties
+
+##dataid  规则  ${spring-application-name}-${profile-active}.${file-extension}
